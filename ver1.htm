@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>World map locations - ver1 - Client side</title>
+	<script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+	<script>
+	$(document).ready(function() {
+		$("body").delegate(".perform" , "click", setCoordinates);
+	});
+
+
+	function setCoordinates(){
+		var x = parseInt($("#cordinates_x").val());
+		var y =  parseInt($("#cordinates_y").val());
+		if (isValidEntries(x,y))
+		{
+			addCoordinates(x,y);
+			resetValues();
+		}
+		else
+		{
+			alert("Coordinates enterd are invalid, please correct by numeric values only.");
+		}
+	}	
+
+	function isValidEntries(x,y)
+	{
+		if (x.length == 0 || y.length == 0)
+			return false;
+		if (isNaN(x) || isNaN(y))
+			return false;
+
+		return true;
+	}
+
+	function resetValues()
+	{
+		$("#cordinates_x").val("");	
+		$("#cordinates_y").val("");
+	}
+
+	function addCoordinates(x,y){
+		$("#map_container").prepend("<img src='http://www.semtech.com/images/semtech/map-tack.gif' class='tack' style='left:"+x+"px;top:"+y+"px;'/>");
+	}
+	</script>
+
+<style>
+html {
+    height: 100%;
+}
+#map_container {
+	position:absolute;
+    height: 600px;
+    width:800px;
+    background-image:url("http://25.media.tumblr.com/tumblr_krxlp6Jwok1qz4ws4o1_500.png");
+    background-size:800px 600px;
+    background-repeat:no-repeat;    
+}
+
+.tack {position:absolute;}
+input { width:30px;}
+</style>
+</head>
+<body>
+<div style="display:inline">
+	<div id="coordinates">
+		<input type="text" maxlength="3" id="cordinates_x" placeholder="x"/><br/>
+		<input type="text" maxlength="3" id="cordinates_y" placeholder="y"/><br/>
+		<button class="perform">Add coordinates</button>
+	</div>
+</div>
+<div id="map_container"><div>
+
+
+</body>
+</html>
